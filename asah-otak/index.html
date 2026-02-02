@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asah Otak - Brain Gym | Spinotek x HIMA TI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animate.css for fun effects -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        neon: {
+                            blue: '#00f3ff',
+                            purple: '#bc13fe',
+                            green: '#0aff0a',
+                            pink: '#ff0055',
+                        },
+                        dark: {
+                            bg: '#050510',
+                            card: '#0f0f20',
+                            surface: '#18182f',
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050510;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 25%);
+            color: #e2e8f0;
+        }
+        .glass-panel {
+            background: rgba(15, 15, 32, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px currentColor;
+        }
+        .neon-border {
+            box-shadow: 0 0 5px currentColor, inset 0 0 5px currentColor;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { bg: #050510; }
+        ::-webkit-scrollbar-thumb { background: #1f1f3a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-hidden selection:bg-neon-pink selection:text-white">
+
+    <!-- Navbar -->
+    <header class="relative z-20 p-6 flex justify-between items-center bg-dark-bg/80 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center gap-3">
+             <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative px-4 py-2 bg-dark-card rounded-full flex items-center gap-3 border border-white/10">
+                    <img src="../assets/img/spinotek-logo.png" alt="Spinotek" class="h-6 brightness-200 contrast-125">
+                    <span class="text-white/20">|</span>
+                    <img src="../assets/img/logo-hima-ti.png" alt="HIMA TI" class="h-8 brightness-125">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Score & Interaction -->
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-2 text-xs font-mono text-neon-blue">
+                <span class="w-2 h-2 rounded-full bg-neon-blue animate-pulse"></span>
+                SYSTEM ONLINE
+            </div>
+            <button id="muteBtn" class="p-2 rounded-full hover:bg-white/5 transition-colors text-slate-400 hover:text-white">
+                <svg id="soundIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 relative z-10 container mx-auto p-4 flex flex-col items-center justify-center">
+        
+        <!-- GAME MENU (Dashboard) -->
+        <div id="gameMenu" class="w-full max-w-5xl">
+            <div class="text-center mb-12 animate__animated animate__fadeInDown">
+                <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 tracking-tight">BRAIN<span class="text-neon-purple">GYM</span></h1>
+                <p class="text-slate-400 font-mono text-sm md:text-base max-w-xl mx-auto">Select a module to initiate cognitive training sequence.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Memory Game Card -->
+                <div onclick="initGame('memory')" class="group cursor-pointer relative">
+                    <div class="absolute -inset-0.5 bg-gradient-to-br from-neon-blue to-transparent rounded-[2rem] blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative glass-panel rounded-[2rem] p-8 h-full flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-500">
+                        <div class="w-20 h-20 rounded-2xl bg-neon-blue/10 flex items-center justify-center text-neon-blue text-4xl mb-6 shadow-lg shadow-neon-blue/20">
+                            🧠
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-neon-blue transition-colors">Memory Matrix</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Recall standard pattern sequences with increasing complexity.</p>
+                        <div class="mt-auto px-4 py-1 rounded-full border border-neon-blue/30 text-neon-blue text-[10px] font-mono tracking-widest uppercase">Visual Recall</div>
+                    </div>
+                </div>
+
+                <!-- Math Game Card -->
+                <div onclick="initGame('math')" class="group cursor-pointer relative">
+                    <div class="absolute -inset-0.5 bg-gradient-to-br from-neon-pink to-transparent rounded-[2rem] blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative glass-panel rounded-[2rem] p-8 h-full flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-500">
+                        <div class="w-20 h-20 rounded-2xl bg-neon-pink/10 flex items-center justify-center text-neon-pink text-4xl mb-6 shadow-lg shadow-neon-pink/20">
+                            ⚡
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-neon-pink transition-colors">Speed Math</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Solve arithmetic equations under extreme time pressure.</p>
+                        <div class="mt-auto px-4 py-1 rounded-full border border-neon-pink/30 text-neon-pink text-[10px] font-mono tracking-widest uppercase">Logic Speed</div>
+                    </div>
+                </div>
+
+                <!-- Color Game Card -->
+                <div onclick="initGame('color')" class="group cursor-pointer relative">
+                    <div class="absolute -inset-0.5 bg-gradient-to-br from-neon-green to-transparent rounded-[2rem] blur opacity-30 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative glass-panel rounded-[2rem] p-8 h-full flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-500">
+                        <div class="w-20 h-20 rounded-2xl bg-neon-green/10 flex items-center justify-center text-neon-green text-4xl mb-6 shadow-lg shadow-neon-green/20">
+                            🎨
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-neon-green transition-colors">Color Chaos</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Match the text meaning, not the ink color. Don't be fooled.</p>
+                        <div class="mt-auto px-4 py-1 rounded-full border border-neon-green/30 text-neon-green text-[10px] font-mono tracking-widest uppercase">Focus Control</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME AREA (Hidden by default) -->
+        <div id="gameArea" class="hidden w-full max-w-4xl relative">
+            <button onclick="exitGame()" class="flex items-center gap-2 mb-4 text-slate-400 hover:text-white transition-colors group">
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </div>
+                <span class="text-sm font-bold uppercase tracking-wide">Abort Mission</span>
+            </button>
+
+            <!-- Game HUD -->
+            <div class="glass-panel rounded-3xl mt-4 p-6 mb-8 flex justify-between items-center bg-dark-bg/50">
+                <div>
+                    <div class="text-xs text-slate-500 font-mono uppercase tracking-widest mb-1">Current Level</div>
+                    <div id="levelDisplay" class="text-3xl font-black text-white">01</div>
+                </div>
+                <div class="text-center">
+                    <div id="gameTitleDisplay" class="text-sm font-bold text-slate-300 uppercase tracking-widest">GAME MODE</div>
+                    <div id="messageDisplay" class="h-6 text-neon-blue font-mono text-xs mt-1 animate-pulse">READY...</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs text-slate-500 font-mono uppercase tracking-widest mb-1">Score</div>
+                    <div id="scoreDisplay" class="text-3xl font-black text-neon-purple">0</div>
+                </div>
+            </div>
+
+            <!-- Game Container -->
+            <div class="glass-panel rounded-[2rem] p-8 md:p-12 min-h-[400px] flex flex-col items-center justify-center relative overflow-hidden">
+                <!-- Timer Bar -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-white/5">
+                    <div id="timerBar" class="h-full bg-neon-pink w-full transition-all duration-100 ease-linear"></div>
+                </div>
+
+                <!-- Dynamic Game Content Injected Here -->
+                <div id="gameContent" class="w-full text-center">
+                    <!-- Javascript will populate this -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer - Compact Branding -->
+    <footer class="relative z-20 py-8 text-center mt-auto">
+        <div class="inline-flex flex-col md:flex-row items-center gap-4 md:gap-8 px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] shadow-sm hover:shadow-lg hover:shadow-neon-blue/20 transition-all">
+            <a href="https://spinotek.com" target="_blank" class="flex items-center gap-3 group text-left">
+                <img src="../assets/img/spinotek-icon.png" alt="Spinotek" class="h-5 transition-all">
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-slate-500 group-hover:text-neon-blue uppercase tracking-wider transition-colors">Spinotek</span>
+                    <span class="text-[9px] text-slate-600 font-medium">Pengembang Software Terpercaya</span>
+                </div>
+            </a>
+            <span class="hidden md:block text-white/10">|</span>
+            <a href="https://www.pmb.polihasnur.ac.id" target="_blank" class="flex items-center gap-3 group text-left">
+                <img src="../assets/img/icon-polihasnur.png" alt="Polihasnur" class="h-6 transition-all">
+                <div class="flex flex-col">
+                    <span class="text-[10px] font-bold text-slate-500 group-hover:text-neon-pink uppercase tracking-wider transition-colors">Polihasnur</span>
+                    <span class="text-[9px] text-slate-600 font-medium">Pilihan Kuliah Terbaik di Kalsel</span>
+                </div>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Audio System -->
+    <script>
+        // Sound Synth
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+
+        const playTone = (freq, type, duration) => {
+            if (ctx.state === 'suspended') ctx.resume();
+            if (isMuted) return;
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start();
+            osc.stop(ctx.currentTime + duration);
+        };
+
+        const sounds = {
+            click: () => playTone(800, 'sine', 0.1),
+            correct: () => {
+                playTone(600, 'sine', 0.1);
+                setTimeout(() => playTone(900, 'sine', 0.2), 100);
+            },
+            wrong: () => {
+                playTone(150, 'sawtooth', 0.3);
+                playTone(100, 'sawtooth', 0.3);
+            },
+            levelUp: () => {
+                playTone(400, 'square', 0.1);
+                setTimeout(() => playTone(600, 'square', 0.1), 100);
+                setTimeout(() => playTone(800, 'square', 0.2), 200);
+            },
+            gameOver: () => {
+                playTone(300, 'sawtooth', 0.3);
+                setTimeout(() => playTone(250, 'sawtooth', 0.3), 200);
+                setTimeout(() => playTone(150, 'sawtooth', 0.6), 400);
+            }
+        };
+
+        let isMuted = false;
+        document.getElementById('muteBtn').addEventListener('click', () => {
+            isMuted = !isMuted;
+            document.getElementById('soundIcon').style.opacity = isMuted ? '0.5' : '1';
+        });
+
+        // Game State
+        let currentScore = 0;
+        let pLevel = 1;
+        let isPlaying = false;
+        let timerInterval;
+        let timeLeft = 0;
+        let maxTime = 0;
+
+        // -- UTILS --
+        const showScreen = (screen) => {
+            document.getElementById('gameMenu').classList.add('hidden');
+            document.getElementById('gameArea').classList.add('hidden');
+            document.getElementById(screen).classList.remove('hidden');
+        };
+
+        const updateHUD = () => {
+            document.getElementById('scoreDisplay').innerText = currentScore;
+            document.getElementById('levelDisplay').innerText = pLevel < 10 ? '0'+pLevel : pLevel;
+        };
+
+        const startTimer = (seconds, onFinish) => {
+            clearInterval(timerInterval);
+            maxTime = seconds;
+            timeLeft = seconds;
+            const bar = document.getElementById('timerBar');
+            
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                const pct = (timeLeft / maxTime) * 100;
+                bar.style.width = pct + '%';
+                
+                if (pct < 30) bar.className = "h-full bg-red-500 transition-all duration-100 ease-linear";
+                else bar.className = "h-full bg-neon-pink transition-all duration-100 ease-linear";
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    onFinish();
+                }
+            }, 100);
+        };
+
+        const gameOver = (reason) => {
+            clearInterval(timerInterval);
+            isPlaying = false;
+            sounds.gameOver();
+            document.getElementById('gameContent').innerHTML = `
+                <div class="animate__animated animate__zoomIn">
+                    <h2 class="text-5xl font-black text-white mb-2">GAME OVER</h2>
+                    <p class="text-slate-400 font-mono mb-8">${reason}</p>
+                    <div class="text-6xl font-black text-neon-blue mb-8">${currentScore}</div>
+                    <button onclick="exitGame()" class="px-8 py-3 bg-neon-purple text-white font-bold rounded-full hover:shadow-[0_0_20px_rgba(188,19,254,0.5)] transition-all">RETURN TO MENU</button>
+                </div>
+            `;
+        };
+
+        const winLevel = (nextLogic) => {
+            sounds.correct();
+            currentScore += (100 * pLevel);
+            updateHUD();
+            
+            if (currentScore > 0 && currentScore % 500 === 0) {
+                 sounds.levelUp();
+                 pLevel++;
+                 // Brief pause for celebration
+            }
+            nextLogic();
+        };
+
+        // GLOBAL INIT
+        function initGame(type) {
+            sounds.click();
+            showScreen('gameArea');
+            currentScore = 0;
+            pLevel = 1;
+            updateHUD();
+            isPlaying = true;
+
+            const games = {
+                'memory': startMemoryGame,
+                'math': startMathGame,
+                'color': startColorGame
+            };
+            
+            if(games[type]) games[type]();
+        }
+
+        function exitGame() {
+            sounds.click();
+            clearInterval(timerInterval);
+            showScreen('gameMenu');
+        }
+
+        // --- GAME 1: MEMORY MATRIX ---
+        // Recall a sequence of flashing grid cells
+        let sequence = [];
+        let playerSequence = [];
+
+        function startMemoryGame() {
+            document.getElementById('gameTitleDisplay').innerText = "MEMORY MATRIX";
+            document.getElementById('messageDisplay').innerText = "WATCH THE PATTERN";
+            nextMemoryRound();
+        }
+
+        function nextMemoryRound() {
+            const gridSize = pLevel < 3 ? 4 : (pLevel < 6 ? 9 : 16);
+            const cols = Math.sqrt(gridSize);
+            sequence = [];
+            playerSequence = [];
+            
+            // Build Grid
+            const container = document.getElementById('gameContent');
+            container.innerHTML = `
+                <div class="grid gap-2 mx-auto mb-8 transition-all" style="grid-template-columns: repeat(${cols}, 1fr); width: ${cols * 80}px;">
+                    ${Array(gridSize).fill(0).map((_, i) => `
+                        <div id="cell-${i}" onclick="handleMemoryClick(${i})" 
+                             class="aspect-square bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-all active:scale-95 flex items-center justify-center">
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="text-slate-500 font-mono text-xs">REPLICATE SEQUENCE</div>
+            `;
+
+            // Generate Sequence
+            const seqLength = pLevel + 2; 
+            for(let i=0; i<seqLength; i++) {
+                sequence.push(Math.floor(Math.random() * gridSize));
+            }
+
+            // Play Sequence
+            let i = 0;
+            const interval = setInterval(() => {
+                if(i >= sequence.length) {
+                    clearInterval(interval);
+                    document.getElementById('messageDisplay').innerText = "YOUR TURN";
+                    startTimer(5 + (pLevel * 1), () => gameOver("TIME OUT"));
+                    return;
+                }
+                
+                const id = sequence[i];
+                const cell = document.getElementById(`cell-${id}`);
+                
+                // Flash
+                cell.classList.remove('bg-white/5');
+                cell.classList.add('bg-neon-blue', 'shadow-[0_0_20px_#00f3ff]');
+                sounds.click();
+
+                setTimeout(() => {
+                    cell.classList.remove('bg-neon-blue', 'shadow-[0_0_20px_#00f3ff]');
+                    cell.classList.add('bg-white/5');
+                }, 400);
+
+                i++;
+            }, 800);
+        }
+
+        window.handleMemoryClick = (id) => {
+            if (document.getElementById('messageDisplay').innerText !== "YOUR TURN") return;
+            
+            sounds.click();
+            const cell = document.getElementById(`cell-${id}`);
+            cell.classList.add('bg-white/40');
+            setTimeout(() => cell.classList.remove('bg-white/40'), 100);
+
+            playerSequence.push(id);
+
+            // Check correctness immediately
+            if (playerSequence[playerSequence.length - 1] !== sequence[playerSequence.length - 1]) {
+                sounds.wrong();
+                gameOver("WRONG PATTERN");
+                return;
+            }
+
+            if (playerSequence.length === sequence.length) {
+                clearInterval(timerInterval);
+                setTimeout(() => {
+                    winLevel(nextMemoryRound);
+                }, 500);
+            }
+        };
+
+
+        // --- GAME 2: SPEED MATH ---
+        // Determine if the equation is True or False
+        function startMathGame() {
+            document.getElementById('gameTitleDisplay').innerText = "SPEED MATH";
+            document.getElementById('messageDisplay').innerText = "TRUE OR FALSE?";
+            nextMathRound();
+        }
+
+        function nextMathRound() {
+            if(!isPlaying) return;
+
+            const n1 = Math.floor(Math.random() * (10 * pLevel)) + 1;
+            const n2 = Math.floor(Math.random() * (10 * pLevel)) + 1;
+            const ops = ['+', '-'];
+            const op = ops[Math.floor(Math.random() * ops.length)];
+            
+            let correctAns;
+            if (op === '+') correctAns = n1 + n2;
+            else correctAns = n1 - n2;
+
+            // 50/50 chance to show correct or slightly wrong answer
+            let shownAns = correctAns;
+            let isCorrect = true;
+            
+            if (Math.random() > 0.5) {
+                shownAns = correctAns + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 1);
+                isCorrect = false;
+            }
+
+            document.getElementById('gameContent').innerHTML = `
+                <div class="flex flex-col items-center animate__animated animate__pulse">
+                    <div class="text-8xl font-black text-white mb-8 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                        ${n1} ${op} ${n2} <span class="text-slate-500">=</span> ${shownAns}
+                    </div>
+                    <div class="grid grid-cols-2 gap-8 w-full max-w-md">
+                        <button onclick="handleMathAnswer(true, ${isCorrect})" class="py-6 rounded-2xl bg-green-500/10 border border-green-500/50 text-green-400 font-bold text-2xl hover:bg-green-500 hover:text-white transition-all">TRUE</button>
+                        <button onclick="handleMathAnswer(false, ${isCorrect})" class="py-6 rounded-2xl bg-red-500/10 border border-red-500/50 text-red-400 font-bold text-2xl hover:bg-red-500 hover:text-white transition-all">FALSE</button>
+                    </div>
+                </div>
+            `;
+
+            // Time gets shorter as levels go up
+            let time = Math.max(1.5, 5 - (pLevel * 0.2)); 
+            startTimer(time, () => gameOver("TOO SLOW"));
+        }
+
+        window.handleMathAnswer = (playerChoice, isActuallyCorrect) => {
+            // playerChoice is true (user clicked True) or false (user clicked False)
+            // isActuallyCorrect is true (equation was correct) or false (equation was wrong)
+            
+            // Winning Condition: User clicked True AND it was Correct OR User clicked False AND it was Wrong
+            // Essentially: playerChoice === isActuallyCorrect ?? No wait.
+            // If Text says 2+2=5 (Wrong), and User clicks False. User is Correct. 
+            // So if User Says True, and IsCorrect is True -> Win
+            // If User Says False, and IsCorrect is False -> Win
+            
+            let userWon = (playerChoice === true && isActuallyCorrect === true) || (playerChoice === false && isActuallyCorrect === false);
+
+            if (userWon) {
+                winLevel(nextMathRound);
+            } else {
+                sounds.wrong();
+                gameOver("WRONG CALCULATION");
+            }
+        };
+
+
+        // --- GAME 3: COLOR CHAOS (Stroop) ---
+        // Match Text Meaning to Ink Color
+        function startColorGame() {
+            document.getElementById('gameTitleDisplay').innerText = "COLOR CHAOS";
+            document.getElementById('messageDisplay').innerText = "CLICK THE COLOR OF THE TEXT";
+            nextColorRound();
+        }
+
+        function nextColorRound() {
+            const colors = [
+                { name: 'RED', hex: '#ef4444' },
+                { name: 'BLUE', hex: '#3b82f6' },
+                { name: 'GREEN', hex: '#22c55e' },
+                { name: 'YELLOW', hex: '#eab308' },
+                { name: 'PURPLE', hex: '#a855f7' },
+                { name: 'PINK', hex: '#ec4899' }
+            ];
+
+            // Pick a word (e.g. "RED")
+            const wordIdx = Math.floor(Math.random() * colors.length);
+            // Pick an ink color (e.g. Blue Hex)
+            const inkIdx = Math.floor(Math.random() * colors.length);
+            
+            // The Correct Answer is the NAME of the Ink Color.
+            // Wait, standard Stroop:
+            // "Name the color of the ink".
+            // So if word is "RED" but key is Blue, answer is "Blue".
+            
+            const targetColorObj = colors[inkIdx]; 
+
+            // Generate options (one must be correct)
+            let options = [targetColorObj];
+            while(options.length < 4) {
+                const r = colors[Math.floor(Math.random() * colors.length)];
+                if(!options.includes(r)) options.push(r);
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            document.getElementById('gameContent').innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="text-7xl font-black mb-12 animate__animated animate__bounceIn" style="color: ${colors[inkIdx].hex}">
+                        ${colors[wordIdx].name}
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 w-full max-w-lg">
+                        ${options.map(opt => `
+                            <button onclick="handleColorAnswer('${opt.name}', '${targetColorObj.name}')" 
+                                class="py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all font-bold text-white text-lg tracking-wider">
+                                ${opt.name}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            startTimer(3 - (pLevel * 0.1), () => gameOver("TOO SLOW"));
+        }
+
+        window.handleColorAnswer = (selected, correct) => {
+            if (selected === correct) {
+                winLevel(nextColorRound);
+            } else {
+                sounds.wrong();
+                gameOver("WRONG COLOR MATCH");
+            }
+        };
+
+    </script>
+</body>
+</html>
