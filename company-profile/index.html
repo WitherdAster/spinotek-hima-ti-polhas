@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHIFT | Creative Tech Agency - Barito Kuala</title>
+    <meta name="description" content="Creative Tech Agency berbasis di Barito Kuala. Mitra digital untuk pertumbuhan UMKM. Layanan: Digital Starter Pack, Social Media Management, POS System.">
+    <meta name="keywords" content="digital agency, barito kuala, umkm, website, social media, pos system, shift digital">
+    <meta name="author" content="SHIFT Digital Indonesia">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SHIFT | Creative Tech Agency - Barito Kuala">
+    <meta property="og:description" content="We Digitalize Your Business, We Simplify Your Tasks. Mitra digital untuk pertumbuhan UMKM.">
+    <meta property="og:image" content="assets/img/logo_shift.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="SHIFT | Creative Tech Agency">
+    <meta property="twitter:description" content="We Digitalize Your Business, We Simplify Your Tasks.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/logo_shift.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lime: '#BFFF00',
+                        'lime-light': '#D4FF5C',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 bg-white/80 backdrop-blur-md border-b border-transparent">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+                    <img src="assets/img/logo_shift.png" alt="SHIFT Logo" class="h-10 md:h-12 transform group-hover:scale-105 transition-transform">
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#vision-mission" class="nav-link">Vision</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#contact" class="btn-primary">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-100 pt-4">
+                <div class="flex flex-col gap-3">
+                    <a href="#about" class="nav-link-mobile">About</a>
+                    <a href="#vision-mission" class="nav-link-mobile">Vision</a>
+                    <a href="#team" class="nav-link-mobile">Team</a>
+                    <a href="#services" class="nav-link-mobile">Services</a>
+                    <a href="#portfolio" class="nav-link-mobile">Portfolio</a>
+                    <a href="#pricing" class="nav-link-mobile">Pricing</a>
+                    <a href="#contact" class="btn-primary text-center block">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Carousel Section -->
+    <section id="hero" class="pt-24 pb-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Carousel Container -->
+            <div class="hero-carousel relative rounded-3xl overflow-hidden shadow-2xl">
+                <!-- Slide 1 -->
+                <div class="hero-slide active">
+                    <div class="relative h-[500px] md:h-[600px]">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop" 
+                             alt="Team Collaboration" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="container mx-auto px-8 md:px-12">
+                                <div class="max-w-2xl">
+                                    <div class="badge mb-6 shadow-lg">
+                                        <span class="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
+                                        Creative Tech Agency
+                                    </div>
+                                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white drop-shadow-2xl">
+                                        We <span class="text-lime drop-shadow-lg">Digitalize</span><br>
+                                        Your Business
+                                    </h1>
+                                    <p class="text-base md:text-lg text-gray-100 mb-6 max-w-xl drop-shadow-lg">
+                                        Creative Tech Agency berbasis di Barito Kuala. Mitra digital untuk pertumbuhan UMKM.
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row items-start gap-3">
+                                        <a href="#contact" class="btn-primary shadow-xl">Mulai Konsultasi</a>
+                                        <a href="#services" class="btn-secondary bg-white/20 border-white/50 text-white hover:bg-white hover:text-black backdrop-blur-sm">Lihat Layanan</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="hero-slide">
+                    <div class="relative h-[500px] md:h-[600px]">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop" 
+                             alt="Digital Solutions" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="container mx-auto px-8 md:px-12">
+                                <div class="max-w-2xl">
+                                    <div class="badge mb-6 shadow-lg">
+                                        <span class="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
+                                        Digital Solutions
+                                    </div>
+                                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white drop-shadow-2xl">
+                                        Solusi Digital<br>
+                                        untuk <span class="text-lime drop-shadow-lg">UMKM</span>
+                                    </h1>
+                                    <p class="text-base md:text-lg text-gray-100 mb-6 max-w-xl drop-shadow-lg">
+                                        Paket lengkap digitalisasi bisnis: Website, Social Media, hingga POS System.
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row items-start gap-3">
+                                        <a href="#services" class="btn-primary shadow-xl">Lihat Paket</a>
+                                        <a href="#pricing" class="btn-secondary bg-white/20 border-white/50 text-white hover:bg-white hover:text-black backdrop-blur-sm">Cek Harga</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="hero-slide">
+                    <div class="relative h-[500px] md:h-[600px]">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2000&auto=format&fit=crop" 
+                             alt="Local Business" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40"></div>
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="container mx-auto px-8 md:px-12">
+                                <div class="max-w-2xl">
+                                    <div class="badge mb-6 shadow-lg">
+                                        <span class="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
+                                        Barito Kuala
+                                    </div>
+                                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white drop-shadow-2xl">
+                                        Anak <span class="text-lime drop-shadow-lg">Banua</span><br>
+                                        untuk Banua
+                                    </h1>
+                                    <p class="text-base md:text-lg text-gray-100 mb-6 max-w-xl drop-shadow-lg">
+                                        Local partner yang mudah diajak ngopi. Komunikasi tanpa hambatan, hasil maksimal.
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row items-start gap-3">
+                                        <a href="#contact" class="btn-primary shadow-xl">Hubungi Kami</a>
+                                        <a href="#team" class="btn-secondary bg-white/20 border-white/50 text-white hover:bg-white hover:text-black backdrop-blur-sm">Kenali Tim</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <button id="hero-prev" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-lime hover:text-black transition-all">
+                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button id="hero-next" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-lime hover:text-black transition-all">
+                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                <!-- Carousel Indicators -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                    <button class="hero-indicator active w-2 h-2 rounded-full bg-lime transition-all" data-slide="0"></button>
+                    <button class="hero-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all" data-slide="1"></button>
+                    <button class="hero-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-all" data-slide="2"></button>
+                </div>
+            </div>
+
+            <!-- Stats Cards Below Carousel -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 max-w-5xl mx-auto">
+                <div class="card bg-white border-2 border-gray-100 p-6 text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-3xl md:text-4xl font-bold mb-2 gradient-text" data-count="50">0+</div>
+                    <div class="text-sm text-gray-600 font-medium">Klien Puas</div>
+                </div>
+                <div class="card bg-white border-2 border-gray-100 p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl md:text-4xl font-bold mb-2 gradient-text" data-count="100">0+</div>
+                    <div class="text-sm text-gray-600 font-medium">Projek Selesai</div>
+                </div>
+                <div class="card bg-white border-2 border-gray-100 p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl md:text-4xl font-bold mb-2 gradient-text" data-count="99">0%</div>
+                    <div class="text-sm text-gray-600 font-medium">Kepuasan</div>
+                </div>
+                <div class="card bg-white border-2 border-gray-100 p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-3xl md:text-4xl font-bold mb-2 gradient-text" data-count="24">0h</div>
+                    <div class="text-sm text-gray-600 font-medium">Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white bg-pattern relative">
+        <!-- Floating Shapes -->
+        <div class="floating-shape top-20 right-10 w-32 h-32 bg-lime rounded-full"></div>
+        <div class="floating-shape bottom-20 left-10 w-24 h-24 bg-lime rounded-lg"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Tentang Kami</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Kenapa Pilih <span class="gradient-text">SHIFT</span>?
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    SHIFT adalah Creative Tech Agency berbasis di Barito Kuala yang fokus membantu UMKM lokal bertransformasi ke era digital.
+                </p>
+            </div>
+
+            <!-- Value Props -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card bg-white border-2 border-gray-100 p-8 text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-16 h-16 bg-lime/10 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">⚡</div>
+                    <h3 class="text-2xl font-bold mb-4">Agile Speed</h3>
+                    <p class="text-gray-600">Kerja cepat berbasis sprint. Hasil dalam hitungan hari, bukan minggu.</p>
+                </div>
+
+                <div class="card bg-white border-2 border-gray-100 p-8 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-lime/10 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">🤝</div>
+                    <h3 class="text-2xl font-bold mb-4">Local Partner</h3>
+                    <p class="text-gray-600">Anak Banua yang mudah diajak ngopi/ketemu. Komunikasi tanpa hambatan.</p>
+                </div>
+
+                <div class="card bg-white border-2 border-gray-100 p-8 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-lime/10 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6">💎</div>
+                    <h3 class="text-2xl font-bold mb-4">Affordable Quality</h3>
+                    <p class="text-gray-600">Harga bersahabat untuk UMKM, kualitas setara agensi profesional.</p>
+                </div>
+            </div>
+
+            <!-- Location Badge -->
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center gap-2 px-6 py-3 bg-gray-50 rounded-full border border-gray-200">
+                    <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-gray-700">Berbasis di <strong>Barito Kuala, Kalimantan Selatan</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section id="vision-mission" class="bg-gray-50 dots-pattern relative">
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 border-4 border-lime/20 rounded-full"></div>
+        <div class="absolute bottom-10 right-10 w-16 h-16 border-4 border-lime/20 rotate-45"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Visi & Misi</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Our <span class="gradient-text">Vision</span> & Mission
+                </h2>
+            </div>
+
+            <!-- Vision -->
+            <div class="max-w-4xl mx-auto mb-16" data-aos="zoom-in">
+                <div class="card bg-gradient-to-br from-lime to-lime-light p-8 md:p-12 text-center">
+                    <div class="w-20 h-20 bg-black/10 rounded-full flex items-center justify-center text-5xl mx-auto mb-6">🎯</div>
+                    <h3 class="text-3xl font-bold mb-4 text-black">Our Vision</h3>
+                    <p class="text-lg text-black/80 leading-relaxed">
+                        "Menjadi mitra strategis digitalisasi yang berdedikasi menyederhanakan operasional dan mengakselerasi pertumbuhan bisnis UMKM di era modern."
+                    </p>
+                </div>
+            </div>
+
+            <!-- 5 Strategic Missions -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <!-- Mission 1 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-right" data-aos-delay="0">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime/10 rounded-xl flex items-center justify-center text-2xl">🏢</div>
+                        <div>
+                            <span class="text-xs text-lime font-bold">MISSION 1</span>
+                            <h4 class="font-bold text-black">Company Culture</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3 font-semibold">"Building Agile & Performance-Based Ecosystem"</p>
+                    <p class="text-sm text-gray-600">Sistem kerja Remote & Agile (Scrum). Budaya kami: Delivery - Klien puas, proyek selesai, tim dibayar.</p>
+                </div>
+
+                <!-- Mission 2 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime/10 rounded-xl flex items-center justify-center text-2xl">💰</div>
+                        <div>
+                            <span class="text-xs text-lime font-bold">MISSION 2</span>
+                            <h4 class="font-bold text-black">Revenue Model</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3 font-semibold">"Diversified Profit Generation"</p>
+                    <p class="text-sm text-gray-600">Cashflow utama dari solusi B2B UMKM, didukung layanan teknis perorangan untuk stabilitas operasional.</p>
+                </div>
+
+                <!-- Mission 3 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime/10 rounded-xl flex items-center justify-center text-2xl">👥</div>
+                        <div>
+                            <span class="text-xs text-lime font-bold">MISSION 3</span>
+                            <h4 class="font-bold text-black">Talent Management</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3 font-semibold">"Strategic Talent Acquisition"</p>
+                    <p class="text-sm text-gray-600">Seleksi aktif mahasiswa berkompeten untuk bergabung ke tim inti. Fokus membangun kapasitas internal yang kuat.</p>
+                </div>
+            </div>
+
+            <!-- Mission 4 & 5 - Centered -->
+            <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <!-- Mission 4 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-right" data-aos-delay="300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime/10 rounded-xl flex items-center justify-center text-2xl">🎯</div>
+                        <div>
+                            <span class="text-xs text-lime font-bold">MISSION 4</span>
+                            <h4 class="font-bold text-black">Client Acquisition</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3 font-semibold">"Market Penetration Strategy"</p>
+                    <p class="text-sm text-gray-600">Pendekatan personal (Direct Sales) kepada pemilik usaha dengan solusi kenaikan omzet terukur.</p>
+                </div>
+
+                <!-- Mission 5 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-left" data-aos-delay="400">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime/10 rounded-xl flex items-center justify-center text-2xl">⚙️</div>
+                        <div>
+                            <span class="text-xs text-lime font-bold">MISSION 5</span>
+                            <h4 class="font-bold text-black">Operational Excellence</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3 font-semibold">"Asset Ownership & Lean Operations"</p>
+                    <p class="text-sm text-gray-600">Membangun aset mandiri dari keuntungan, operasional ramping agar harga tetap kompetitif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="bg-white grid-pattern relative">
+        <!-- Gradient Orbs -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-lime/10 to-transparent rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-lime/10 to-transparent rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Tim Kami</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Meet Our <span class="gradient-text">Leaders</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Tim leadership yang berdedikasi membawa SHIFT menjadi mitra digital terpercaya untuk UMKM.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- CEO -->
+                <div class="card bg-white border-2 border-gray-100 p-8 text-center group hover:border-lime/50 transition-all" data-aos="flip-left" data-aos-delay="0">
+                    <div class="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-lime/20 group-hover:ring-lime/40 transition-all">
+                        <img src="assets/img/team/aidul.jpeg"
+                             alt="Aidul Akbari" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Aidul Akbari</h3>
+                    <p class="text-lime font-semibold mb-3">CEO / Business Director</p>
+                    <div class="inline-block px-4 py-2 bg-lime/10 rounded-full text-sm font-medium text-black mb-4">
+                        Growth, Sales & Money In
+                    </div>
+                    <p class="text-gray-600 text-sm mb-6">
+                        "Wajah Perusahaan" yang memastikan agensi tidak pernah sepi orderan. Fokus pada client acquisition, strategic partnership, dan revenue management.
+                    </p>
+                    <div class="flex items-center justify-center gap-3">
+                        <a href="https://instagram.com/aidulakbari" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:shadow-lg transition-all text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            Instagram
+                        </a>
+                        <a href="https://www.linkedin.com/in/aidul-akbari/" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-all text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- COO -->
+                <div class="card bg-white border-2 border-gray-100 p-8 text-center group hover:border-lime/50 transition-all" data-aos="flip-right" data-aos-delay="100">
+                    <div class="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-lime/20 group-hover:ring-lime/40 transition-all">
+                        <img src="assets/img/team/arif.jpeg"
+                             alt="Muhammad Arif" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Muhammad Arif</h3>
+                    <p class="text-lime font-semibold mb-3">COO / Tech Lead</p>
+                    <div class="inline-block px-4 py-2 bg-lime/10 rounded-full text-sm font-medium text-black mb-4">
+                        Operations, Delivery & Talent
+                    </div>
+                    <p class="text-gray-600 text-sm mb-6">
+                        "Otak Dapur" yang memastikan janji ke klien ditepati dengan kualitas prima. Fokus pada project execution, talent management, dan quality control.
+                    </p>
+                    <div class="flex items-center justify-center gap-3">
+                        <a href="https://instagram.com/agatha_axcellio" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:shadow-lg transition-all text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                            Instagram
+                        </a>
+                        <a href="https://www.linkedin.com/muhammad-arif-b0826a3aa/" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:shadow-lg transition-all text-sm font-medium">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work / Process Section -->
+    <section id="process" class="bg-gray-50 bg-pattern relative">
+        <!-- Decorative Lines -->
+        <div class="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime/20 to-transparent"></div>
+        <div class="absolute bottom-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-lime/20 to-transparent"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Cara Kerja</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    How We <span class="gradient-text">Work</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Proses kerja yang transparan dan terstruktur untuk memastikan hasil terbaik.
+                </p>
+            </div>
+
+            <!-- Process Steps with Connection Line -->
+            <div class="relative max-w-6xl mx-auto mb-12 pt-8">
+                <!-- Connection Line (Desktop) -->
+                <div class="hidden lg:block absolute left-0 right-0 h-1 bg-gradient-to-r from-lime/20 via-lime to-lime/20 rounded-full" style="top: 68px;"></div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                    <!-- Step 1 -->
+                    <div class="card bg-white border-2 border-gray-100 p-6 pt-12 text-center relative group hover:border-lime/50 hover:shadow-xl transition-all" data-aos="fade-up" data-aos-delay="0">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gradient-to-br from-lime to-lime-light rounded-full flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:scale-110 transition-transform z-10">
+                            1
+                        </div>
+                        <div class="mt-6 mb-4">
+                            <div class="w-16 h-16 mx-auto bg-lime/10 rounded-2xl flex items-center justify-center group-hover:bg-lime/20 transition-colors">
+                                <svg class="w-8 h-8 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Konsultasi</h4>
+                        <p class="text-sm text-gray-600">Diskusi kebutuhan bisnis dan solusi yang tepat</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="card bg-white border-2 border-gray-100 p-6 pt-12 text-center relative group hover:border-lime/50 hover:shadow-xl transition-all" data-aos="fade-up" data-aos-delay="100">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gradient-to-br from-lime to-lime-light rounded-full flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:scale-110 transition-transform z-10">
+                            2
+                        </div>
+                        <div class="mt-6 mb-4">
+                            <div class="w-16 h-16 mx-auto bg-lime/10 rounded-2xl flex items-center justify-center group-hover:bg-lime/20 transition-colors">
+                                <svg class="w-8 h-8 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Planning</h4>
+                        <p class="text-sm text-gray-600">Menyusun timeline dan scope project yang jelas</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="card bg-white border-2 border-gray-100 p-6 pt-12 text-center relative group hover:border-lime/50 hover:shadow-xl transition-all" data-aos="fade-up" data-aos-delay="200">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gradient-to-br from-lime to-lime-light rounded-full flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:scale-110 transition-transform z-10">
+                            3
+                        </div>
+                        <div class="mt-6 mb-4">
+                            <div class="w-16 h-16 mx-auto bg-lime/10 rounded-2xl flex items-center justify-center group-hover:bg-lime/20 transition-colors">
+                                <svg class="w-8 h-8 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Execution</h4>
+                        <p class="text-sm text-gray-600">Tim bekerja dengan metode Agile & Scrum</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="card bg-white border-2 border-gray-100 p-6 pt-12 text-center relative group hover:border-lime/50 hover:shadow-xl transition-all" data-aos="fade-up" data-aos-delay="300">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-14 h-14 bg-gradient-to-br from-lime to-lime-light rounded-full flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:scale-110 transition-transform z-10">
+                            4
+                        </div>
+                        <div class="mt-6 mb-4">
+                            <div class="w-16 h-16 mx-auto bg-lime/10 rounded-2xl flex items-center justify-center group-hover:bg-lime/20 transition-colors">
+                                <svg class="w-8 h-8 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Delivery</h4>
+                        <p class="text-sm text-gray-600">Serah terima hasil & support purna jual</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Info Card -->
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="bg-gradient-to-r from-lime/10 via-lime/5 to-lime/10 border-2 border-lime/30 rounded-2xl p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-lime rounded-2xl flex items-center justify-center shadow-lg">
+                                <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left flex-1">
+                            <h3 class="font-bold text-xl mb-2 text-black">Timeline Pengerjaan</h3>
+                            <div class="flex flex-wrap gap-4 justify-center md:justify-start text-sm">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-lime rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Digital Starter:</strong> 3-5 hari</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-lime rounded-full"></span>
+                                    <span class="text-gray-700"><strong>Social Media:</strong> 2 hari</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-lime rounded-full"></span>
+                                    <span class="text-gray-700"><strong>POS System:</strong> 5-7 hari</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section id="services" class="bg-gray-50 dots-pattern relative">
+        <!-- Corner Decorations -->
+        <div class="absolute top-0 left-0 w-40 h-40 border-l-4 border-t-4 border-lime/20 rounded-tl-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-40 h-40 border-r-4 border-b-4 border-lime/20 rounded-br-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Layanan</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Solusi <span class="gradient-text">Lengkap</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="card bg-white border-2 border-gray-100 p-8" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="w-16 h-16 bg-gradient-to-br from-lime to-lime-light rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        🚀
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Digital Starter Pack</h3>
+                    <p class="text-gray-600 mb-6">Paket lengkap untuk memulai kehadiran digital bisnis Anda.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Website Landing Page</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Setup Google Maps</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Akun Sosmed Profesional</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="card bg-white border-2 border-gray-100 p-8" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-gradient-to-br from-lime to-lime-light rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        📱
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Social Media</h3>
+                    <p class="text-gray-600 mb-6">Kelola konten media sosial bisnis Anda secara profesional.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Content Planning</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Design & Copywriting</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Admin & Reporting</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card bg-white border-2 border-gray-100 p-8" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-gradient-to-br from-lime to-lime-light rounded-2xl flex items-center justify-center text-3xl mb-6">
+                        💳
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">POS System</h3>
+                    <p class="text-gray-600 mb-6">Setup sistem kasir digital untuk bisnis kuliner.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Tablet & Printer Setup</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Menu Input</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">Staff Training</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Promo Banner -->
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center gap-4 bg-lime/10 border-2 border-lime/30 px-8 py-4 rounded-2xl">
+                    <span class="text-3xl">🎁</span>
+                    <div class="text-left">
+                        <p class="font-bold text-black">Promo Spesial</p>
+                        <p class="text-sm text-gray-600">Diskon 10% untuk bundle 3 layanan sekaligus!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="bg-white grid-pattern relative">
+        <!-- Floating Circles -->
+        <div class="absolute top-20 right-20 w-3 h-3 bg-lime rounded-full opacity-30"></div>
+        <div class="absolute top-40 right-40 w-2 h-2 bg-lime rounded-full opacity-40"></div>
+        <div class="absolute bottom-20 left-20 w-4 h-4 bg-lime rounded-full opacity-20"></div>
+        <div class="absolute bottom-40 left-40 w-2 h-2 bg-lime rounded-full opacity-50"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Portfolio</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Hasil <span class="gradient-text">Karya</span> Kami
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Project nyata yang sudah kami kerjakan dengan teknologi modern.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio 1: E-Voting Polihasnur KPUM 2026-->
+                <div class="card bg-white border-2 border-gray-100 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative overflow-hidden">
+                        <img src="assets\img\portfolio\kpum.png" 
+                             alt="E-Voting System" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-3 py-1 bg-lime text-black text-xs font-bold rounded-full">Web Platform</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">E-Voting Polihasnur KPUM 2026</h3>
+                        <p class="text-gray-600 text-sm mb-4">Sistem pemilihan umum digital dengan real-time vote counting, data visualization, dan token-based authentication.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded font-medium">Next.js 14</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded font-medium">Supabase</span>
+                            <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded font-medium">Tailwind CSS</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded font-medium">Recharts</span>
+                            <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded font-medium">Framer Motion</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded font-medium">ExcelJS</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded font-medium">React-PDF</span>
+                        </div>
+                        <a href="https://github.com/AkbariAidul/KPUM-2025" target="_blank" class="inline-flex items-center gap-2 text-lime hover:text-lime-light font-semibold transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Portfolio 2: KostHub -->
+                <div class="card bg-white border-2 border-gray-100 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-video bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center relative overflow-hidden">
+                        <img src="assets\img\portfolio\kosthub.png" 
+                             alt="KostHub Boarding House Platform" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-3 py-1 bg-lime text-black text-xs font-bold rounded-full">Web App</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">KostHub</h3>
+                        <p class="text-gray-600 text-sm mb-4">Platform booking kos modern dengan admin panel lengkap, sistem pencarian, dan manajemen properti terintegrasi.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded font-medium">Laravel 11</span>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded font-medium">Filament Admin</span>
+                            <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded font-medium">Tailwind CSS</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded font-medium">MySQL</span>
+                        </div>
+                        <a href="https://github.com/AkbariAidul/KostHub" target="_blank" class="inline-flex items-center gap-2 text-lime hover:text-lime-light font-semibold transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Portfolio 3: Karang Bunga Post -->
+                <div class="card bg-white border-2 border-gray-100 rounded-2xl overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-video bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center relative overflow-hidden">
+                        <img src="assets\img\portfolio\index.png" 
+                             alt="Karang Bunga Post News Portal" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-3 right-3">
+                            <span class="px-3 py-1 bg-lime text-black text-xs font-bold rounded-full">News Portal</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Karang Bunga Post</h3>
+                        <p class="text-gray-600 text-sm mb-4">Portal berita desa Karang Bunga dengan CMS lengkap, kategori berita, dan sistem publikasi terintegrasi.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded font-medium">Laravel</span>
+                            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded font-medium">Filament</span>
+                            <span class="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded font-medium">Tailwind CSS</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded font-medium">MySQL</span>
+                        </div>
+                        <a href="https://github.com/AkbariAidul/karang_bunga_post" target="_blank" class="inline-flex items-center gap-2 text-lime hover:text-lime-light font-semibold transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-50 bg-pattern relative">
+        <!-- Gradient Background -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-lime/5 to-transparent"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Testimoni</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Apa Kata <span class="gradient-text">Klien</span> Kami?
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Kepuasan klien adalah prioritas utama kami. Berikut testimoni dari beberapa klien yang sudah bekerja sama dengan SHIFT.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-lime/10 rounded-full flex items-center justify-center text-2xl font-bold text-black">
+                            PB
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black">Pak Budi</h4>
+                            <p class="text-sm text-gray-600">Warung Makan Barokah</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                    </div>
+                    <p class="text-gray-600 text-sm italic">"Pelayanan cepat dan hasil memuaskan! Sekarang warung saya mudah ditemukan di Google Maps. Omzet naik 30% sejak pakai jasa SHIFT."</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-lime/10 rounded-full flex items-center justify-center text-2xl font-bold text-black">
+                            IS
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black">Ibu Siti</h4>
+                            <p class="text-sm text-gray-600">Kopi Senja</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                    </div>
+                    <p class="text-gray-600 text-sm italic">"Harga terjangkau, kualitas oke! Tim SHIFT bantu kelola Instagram saya, sekarang followers naik dan banyak yang order online."</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card bg-white border-2 border-gray-100 p-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-lime/10 rounded-full flex items-center justify-center text-2xl font-bold text-black">
+                            AR
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black">Agus Riyadi</h4>
+                            <p class="text-sm text-gray-600">Burger Bangor</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1 mb-3">
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                        <span class="text-lime">⭐</span>
+                    </div>
+                    <p class="text-gray-600 text-sm italic">"POS system yang dipasang SHIFT sangat membantu! Kasir jadi lebih cepat, laporan penjualan jelas. Recommended!"</p>
+                </div>
+            </div>
+
+            <!-- Stats with Animation -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-lime mb-2" data-count="50">0+</div>
+                    <p class="text-sm text-gray-600 font-medium">Klien Puas</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-lime mb-2" data-count="100">0+</div>
+                    <p class="text-sm text-gray-600 font-medium">Projek Selesai</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-lime mb-2" data-count="99">0%</div>
+                    <p class="text-sm text-gray-600 font-medium">Kepuasan</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-lime mb-2" data-count="24">0h</div>
+                    <p class="text-sm text-gray-600 font-medium">Response Time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="bg-white dots-pattern relative">
+        <!-- Decorative Squares -->
+        <div class="absolute top-10 left-10 w-12 h-12 border-2 border-lime/20 rotate-12"></div>
+        <div class="absolute top-20 right-20 w-16 h-16 border-2 border-lime/20 -rotate-12"></div>
+        <div class="absolute bottom-10 left-1/4 w-10 h-10 border-2 border-lime/20 rotate-45"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <span class="text-lime font-semibold mb-2 block">Harga</span>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Paket <span class="gradient-text">Terjangkau</span>
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Starter -->
+                <div class="card bg-white border-2 border-gray-100 p-8 rounded-2xl" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Rp 1,5jt</span>
+                        <span class="text-gray-600">/paket</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Landing Page</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Google Maps Setup</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>2x Revisi</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn-secondary w-full text-center block">Pilih Paket</a>
+                </div>
+
+                <!-- Professional (Highlighted) -->
+                <div class="card bg-gradient-to-br from-lime to-lime-light p-8 rounded-2xl transform scale-105 shadow-2xl" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="inline-block px-3 py-1 bg-black/10 rounded-full text-xs font-bold mb-4">POPULER</div>
+                    <h3 class="text-2xl font-bold mb-2 text-black">Professional</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-black">Rp 3jt</span>
+                        <span class="text-black/70">/paket</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-black">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Semua fitur Starter</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Social Media (1 Bulan)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Menu Digital + QR</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Unlimited Revisi</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="block w-full text-center px-6 py-3 bg-black text-white rounded-xl font-semibold hover:bg-black/90 transition-all">
+                        Pilih Paket
+                    </a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="card bg-white border-2 border-gray-100 p-8 rounded-2xl" data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Custom</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Semua fitur Pro</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>POS System</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Custom Development</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn-secondary w-full text-center block">Hubungi Kami</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white bg-pattern relative">
+        <!-- Radial Gradient -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-lime/10 to-transparent rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-lime font-semibold mb-2 block">Kontak</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        Hubungi <span class="gradient-text">Kami</span>
+                    </h2>
+                    <p class="text-gray-600">
+                        Siap memulai transformasi digital bisnis Anda? Hubungi kami untuk konsultasi gratis.
+                    </p>
+                </div>
+
+                <!-- Contact Cards -->
+                <div class="grid md:grid-cols-2 gap-6 mb-12">
+                    <a href="https://wa.me/6282354625412" target="_blank" class="card flex items-center gap-4 bg-white border-2 border-gray-100 p-6 rounded-2xl" data-aos="fade-right">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black mb-1">WhatsApp</h4>
+                            <p class="text-sm text-gray-600">Chat langsung, respon cepat!</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:hello.shift.agency@gmail.com" class="card flex items-center gap-4 bg-white border-2 border-gray-100 p-6 rounded-2xl" data-aos="fade-left">
+                        <div class="w-14 h-14 bg-lime/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-black mb-1">Email</h4>
+                            <p class="text-sm text-gray-600">hello.shift.agency@gmail.com</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="bg-gradient-to-br from-lime to-lime-light p-8 rounded-2xl mb-12" data-aos="zoom-in">
+                    <div class="max-w-2xl mx-auto text-center">
+                        <h3 class="text-2xl font-bold text-black mb-3">📬 Subscribe Newsletter</h3>
+                        <p class="text-black/80 mb-6">Dapatkan tips digitalisasi bisnis, promo spesial, dan update terbaru dari SHIFT!</p>
+                        <form class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" placeholder="Masukkan email Anda..." class="flex-1 px-6 py-3 rounded-xl border-2 border-black/10 focus:border-black focus:outline-none" required>
+                            <button type="submit" class="px-8 py-3 bg-black text-white rounded-xl font-semibold hover:bg-black/90 transition-all">
+                                Subscribe
+                            </button>
+                        </form>
+                        <p class="text-xs text-black/60 mt-3">*Kami tidak akan spam email Anda. Unsubscribe kapan saja.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="bg-gray-50 p-8 rounded-2xl" data-aos="fade-up">
+                    <h3 class="font-bold text-xl mb-6">Frequently Asked Questions</h3>
+                    <div class="space-y-4">
+                        <details class="group">
+                            <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-xl hover:bg-gray-50 transition-colors">
+                                <span class="font-semibold">Berapa lama proses pengerjaan?</span>
+                                <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </summary>
+                            <p class="mt-3 px-4 text-gray-600">Tergantung paket yang diambil. Untuk Digital Starter Pack biasanya 3-5 hari kerja. Social Media Setup sekitar 2 hari.</p>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-xl hover:bg-gray-50 transition-colors">
+                                <span class="font-semibold">Apakah ada garansi revisi?</span>
+                                <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </summary>
+                            <p class="mt-3 px-4 text-gray-600">Tentu! Setiap paket include 2x revisi minor gratis. Kami pastikan hasil sesuai brief awal.</p>
+                        </details>
+
+                        <details class="group">
+                            <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-xl hover:bg-gray-50 transition-colors">
+                                <span class="font-semibold">Pembayaran bisa dicicil?</span>
+                                <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </summary>
+                            <p class="mt-3 px-4 text-gray-600">Bisa DP 50% di awal, pelunasan setelah projek selesai dan Anda puas dengan hasilnya.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-4">
+            <!-- Partner Logos Watermark -->
+            <div class="mb-12 pb-8 border-b border-gray-800">
+                <p class="text-center text-gray-500 text-sm mb-6">Supported By</p>
+                <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+                    <img src="assets/img/spinotek-logo.png" alt="Spinotek" class="h-8 md:h-10 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+                    <img src="assets/img/logo-hima-ti.png" alt="HIMA TI" class="h-8 md:h-10 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+                    <img src="assets/img/png POLHAS.png" alt="Polihasnur" class="h-8 md:h-10 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+                    <img src="assets/img/spinotek-icon.png" alt="Spinotek Icon" class="h-8 md:h-10 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="assets/img/logo_shift.png" alt="SHIFT Logo" class="h-10">
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        We Digitalize Your Business, <br> We Simplify Your Tasks.
+                    </p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <svg class="w-4 h-4 text-lime" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Barito Kuala, Kalimantan Selatan</span>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div>
+                    <h4 class="font-bold mb-4">About</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#about" class="hover:text-lime transition-colors">Tentang Kami</a></li>
+                        <li><a href="#vision-mission" class="hover:text-lime transition-colors">Visi & Misi</a></li>
+                        <li><a href="#team" class="hover:text-lime transition-colors">Tim</a></li>
+                        <li><a href="#process" class="hover:text-lime transition-colors">Cara Kerja</a></li>
+                    </ul>
+                </div>
+
+                <!-- Menu -->
+                <div>
+                    <h4 class="font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#services" class="hover:text-lime transition-colors">Layanan</a></li>
+                        <li><a href="#portfolio" class="hover:text-lime transition-colors">Portfolio</a></li>
+                        <li><a href="#pricing" class="hover:text-lime transition-colors">Harga</a></li>
+                        <li><a href="#contact" class="hover:text-lime transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
+
+                <!-- Connect -->
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="space-y-3 text-sm">
+                        <a href="mailto:hello.shift.agency@gmail.com" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-lime transition-colors">
+                            <span>📧</span> hello.shift.agency@gmail.com
+                        </a>
+                        <a href="https://instagram.com/shift.digital" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-lime transition-colors">
+                            <span>📸</span> @shift.digital
+                        </a>
+                        <a href="https://www.linkedin.com/company/shift-digital-indonesia/" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-lime transition-colors">
+                            <span>💼</span> Shift Digital Indonesia
+                        </a>
+                        <a href="https://wa.me/6282354625412" target="_blank" class="flex items-center gap-2 text-gray-400 hover:text-lime transition-colors">
+                            <span>💬</span> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-400">© 2026 SHIFT. All rights reserved.</p>
+                <div class="flex items-center gap-2 text-sm text-gray-400">
+                    <span class="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
+                    Developed by SHIFT Team
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/6282354625412?text=Halo%20SHIFT!%20Saya%20tertarik%20dengan%20layanan%20digitalisasi%20bisnis." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all hover:scale-110 group"
+       id="wa-float"
+       aria-label="Chat via WhatsApp">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-ping"></span>
+        <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full"></span>
+    </a>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>
