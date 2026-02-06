@@ -1,22 +1,29 @@
 /**
  * ui.js
  * DOM Rendering logic.
+ * Adapted for Global Scope.
  */
 
-const elements = {
-    charLevel: document.getElementById('char-level'),
-    charGold: document.getElementById('char-gold'),
-    charStatus: document.getElementById('char-status'),
-    hpText: document.getElementById('hp-text'),
-    hpBar: document.getElementById('hp-bar'),
-    expText: document.getElementById('exp-text'),
-    expBar: document.getElementById('exp-bar'),
-    habitList: document.getElementById('habit-list'),
-    actionLog: document.getElementById('action-log')
-};
+let elements = {};
 
-export const UI = {
+window.UI = {
+    init() {
+        elements = {
+            charLevel: document.getElementById('char-level'),
+            charGold: document.getElementById('char-gold'),
+            charStatus: document.getElementById('char-status'),
+            hpText: document.getElementById('hp-text'),
+            hpBar: document.getElementById('hp-bar'),
+            expText: document.getElementById('exp-text'),
+            expBar: document.getElementById('exp-bar'),
+            habitList: document.getElementById('habit-list'),
+            actionLog: document.getElementById('action-log')
+        };
+        console.log('UI Initialized. Elements found:', !!elements.habitList);
+    },
+
     render(state) {
+        if (!state) return;
         renderDashboard(state.character);
         renderHabits(state.habits);
         renderLogs(state.logs);
@@ -24,27 +31,43 @@ export const UI = {
 };
 
 function renderDashboard(char) {
+    if (!elements.charLevel) return; // Guard
+
     elements.charLevel.textContent = String(char.level).padStart(2, '0');
     elements.charGold.textContent = char.gold;
     elements.charStatus.textContent = char.status;
 
+    // HP Bar
     elements.hpText.textContent = `${char.hp}/${char.maxHp}`;
     const hpPercent = (char.hp / char.maxHp) * 100;
     elements.hpBar.style.width = `${hpPercent}%`;
 
-    elements.expText.textContent = `${Math.floor(char.currentExp)}/${Math.floor(char.maxExp)}`;
+    // EXP Bar
     const expPercent = (char.currentExp / char.maxExp) * 100;
     elements.expBar.style.width = `${expPercent}%`;
 
-    // Visual cues
-    if (char.status === 'FAINTED') {
-        elements.charStatus.style.color = 'var(--color-alert)';
+    // Fainted State Handling
+    const isFainted = char.status === 'FAINTED';
+
+    // Toggle Global State
+    document.body.classList.toggle('is-fainted', isFainted);
+    document.querySelector('.dashboard').classList.toggle('is-fainted', isFainted);
+
+    if (isFainted) {
+        elements.charStatus.className = 'cy-badge fainted';
+        elements.charStatus.textContent = 'FAINTED';
+
+        elements.expText.innerHTML = `${Math.floor(char.currentExp)}/${Math.floor(char.maxExp)} <span style="color:var(--cy-neon-red); font-size:0.6em;">[-50% GAIN]</span>`;
     } else {
-        elements.charStatus.style.color = 'var(--color-primary)';
+        elements.charStatus.className = 'cy-badge';
+        elements.charStatus.textContent = 'NORMAL';
+        elements.expText.textContent = `${Math.floor(char.currentExp)}/${Math.floor(char.maxExp)}`;
     }
 }
 
 function renderHabits(habits) {
+    if (!elements.habitList) return;
+
     // Determine if we need to full re-render or patch. 
     // For Vanilla MVP, clearing innerHTML and rebuilding is acceptable for small lists.
     elements.habitList.innerHTML = '';
@@ -67,6 +90,7 @@ function renderHabits(habits) {
 }
 
 function renderLogs(logs) {
+    if (!elements.actionLog) return;
     elements.actionLog.innerHTML = logs.map(log => `
         <div class="log-entry">
             <span class="log-time">[${log.timestamp}]</span> ${log.message}
@@ -75,7 +99,8 @@ function renderLogs(logs) {
 }
 
 // Event Delegation setup helper
-export function setupEventListeners(handler) {
+window.setupEventListeners = function (handler) {
+    if (!elements.habitList) return;
     elements.habitList.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;

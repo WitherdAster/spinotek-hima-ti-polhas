@@ -1,69 +1,76 @@
 /**
  * rpgLogic.js
  * Pure business logic for the RPG system.
+ * Adapted for Global Scope (active on file://)
  */
 
-export const DIFFICULTY_TIERS = {
+const DIFFICULTY_TIERS = {
     TRIVIAL: { exp: 5, hpCost: 2 },
     EASY: { exp: 10, hpCost: 5 },
     MEDIUM: { exp: 20, hpCost: 10 },
     HARD: { exp: 50, hpCost: 25 }
 };
 
-export const CHARACTER_STATUS = {
+const CHARACTER_STATUS = {
     NORMAL: 'NORMAL',
     FAINTED: 'FAINTED'
 };
 
 const FAINT_PENALTY_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 
-/**
- * Calculates the EXP required to reach the NEXT level.
- * Formula: round(0.04 * L^3 + 0.8 * L^2 + 2 * L) * 100
- * Note: The prompt asks for "EXP_Next_Level", implying the total cap for the current level
- * or the threshold to reach level + 1. 
- * Let's interpret this as the Total EXP required to complete the current Level.
- */
-export function calculateNextLevelExp(level) {
+function calculateNextLevelExp(level) {
     const l = level;
     return Math.round(0.04 * Math.pow(l, 3) + 0.8 * Math.pow(l, 2) + 2 * l) * 100;
 }
 
-/**
- * Processes a successful habit execution.
- */
-export function executeHabit(character, difficultyKey) {
+function executeHabit(character, difficultyKey) {
     const rewards = DIFFICULTY_TIERS[difficultyKey] || DIFFICULTY_TIERS.EASY;
 
-    // Check for faint penalty
-    let expGain = rewards.exp;
-    if (character.status === CHARACTER_STATUS.FAINTED) {
-        if (Date.now() - character.lastFaintedTimestamp < FAINT_PENALTY_DURATION_MS) {
-            expGain = Math.floor(expGain / 2);
+    // Check for recovery FIRST
+    let status = character.status;
+    let hp = character.hp;
+    let lastFaintedTimestamp = character.lastFaintedTimestamp;
+    let recovered = false;
+
+    if (status === CHARACTER_STATUS.FAINTED) {
+        if (Date.now() - lastFaintedTimestamp >= FAINT_PENALTY_DURATION_MS) {
+            // Auto Recover
+            status = CHARACTER_STATUS.NORMAL;
+            lastFaintedTimestamp = null;
+            hp = Math.floor(character.maxHp * 0.5);
+            recovered = true;
         } else {
-            // Penalty expired, auto-recover status could happen here or in a separate check
-            // For now, we apply full exp if penalty time is over, assuming status updates on load
-            // But let's keep it simple: if still marked FAINTED, check time
-            // If time passed, we might want to return a status update flag too.
+            // Apply Penalty
+            // If already penalized in rewards, this might be double dipping? 
+            // Better to modify the gain directly
         }
+    }
+
+    // Apply penalty to gain if fainted and not just recovered
+    let expGain = rewards.exp;
+    if (status === CHARACTER_STATUS.FAINTED && !recovered) {
+        expGain = Math.floor(expGain / 2);
     }
 
     // Logic to add EXP
     let newExp = character.currentExp + expGain;
     let newLevel = character.level;
     let newMaxExp = character.maxExp;
-    let newHp = character.hp;
     let newMaxHp = character.maxHp;
+    let newHp = (recovered) ? hp : character.hp; // Use recovered HP if recovered, else current
     let leveledUp = false;
 
-    // Level up loop
+    // Use loop for multi-level gain
     while (newExp >= newMaxExp) {
         newExp -= newMaxExp;
         newLevel++;
         newMaxExp = calculateNextLevelExp(newLevel);
-        newMaxHp += 10; // Simple HP growth
-        newHp = newMaxHp; // Restore HP on level up
+        newMaxHp += 10;
+        newHp = newMaxHp; // Full Restore on Level Up
+        status = CHARACTER_STATUS.NORMAL; // Level up cures fainting
+        lastFaintedTimestamp = null;
         leveledUp = true;
+        recovered = false; // Reset recovered flag since level up overrides it
     }
 
     return {
@@ -74,13 +81,14 @@ export function executeHabit(character, difficultyKey) {
         hp: newHp,
         maxHp: newMaxHp,
         gold: character.gold + (rewards.exp), // 1 Gold per 1 base EXP
+        status: status,
+        lastFaintedTimestamp: lastFaintedTimestamp,
+        _justRecovered: recovered, // Internal flag for UI logging
+        _leveledUp: leveledUp
     };
 }
 
-/**
- * Processes a failed habit execution (Abort).
- */
-export function abortHabit(character, difficultyKey) {
+function abortHabit(character, difficultyKey) {
     const penalty = DIFFICULTY_TIERS[difficultyKey] || DIFFICULTY_TIERS.EASY;
 
     let newHp = character.hp - penalty.hpCost;
@@ -103,10 +111,7 @@ export function abortHabit(character, difficultyKey) {
     };
 }
 
-/**
- * Checks if Fainted status should be removed.
- */
-export function checkStatusRecovery(character) {
+function checkStatusRecovery(character) {
     if (character.status === CHARACTER_STATUS.FAINTED) {
         if (Date.now() - character.lastFaintedTimestamp >= FAINT_PENALTY_DURATION_MS) {
             return {
@@ -119,3 +124,13 @@ export function checkStatusRecovery(character) {
     }
     return character;
 }
+
+// Expose to Global Scope
+window.RPG = {
+    DIFFICULTY_TIERS,
+    CHARACTER_STATUS,
+    calculateNextLevelExp,
+    executeHabit,
+    abortHabit,
+    checkStatusRecovery
+};
