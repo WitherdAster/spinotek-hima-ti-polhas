@@ -7,59 +7,68 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="cyber-interface">
+        <div class="scanline"></div>
+        
         <!-- Dashboard Section -->
-        <header class="dashboard frame">
+        <header class="dashboard cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">⚡</span> STATUS_MONITOR
+            </div>
+            
             <div class="char-info">
-                <div class="level-box">
-                    <span class="label">LVL</span>
-                    <span id="char-level" class="value">01</span>
+                <div class="stat-group">
+                    <div class="cy-label">LVL</div>
+                    <div id="char-level" class="cy-value neon-text">01</div>
                 </div>
-                <div class="gold-box">
-                    <span class="label">GOLD</span>
-                    <span id="char-gold" class="value">0</span>
+                <div class="stat-group">
+                    <div class="cy-label">GOLD</div>
+                    <div id="char-gold" class="cy-value gold-text">0</div>
                 </div>
-                <div class="status-box">
-                    <span class="label">STATUS</span>
-                    <span id="char-status" class="value">NORMAL</span>
+                <div class="stat-group">
+                    <div class="cy-label">CONDITION</div>
+                    <div id="char-status" class="cy-badge">NORMAL</div>
                 </div>
             </div>
             
-            <div class="bars">
-                <div class="bar-container hp-container">
-                    <div class="bar-label">HP <span id="hp-text">50/50</span></div>
-                    <div class="bar-track">
-                        <div id="hp-bar" class="bar-fill" style="width: 100%;"></div>
+            <div class="bars-container">
+                <div class="bar-wrapper hp-wrapper">
+                    <div class="bar-header">
+                        <span class="cy-label">INTEGRITY (HP)</span>
+                        <span id="hp-text" class="bar-value">50/50</span>
+                    </div>
+                    <div class="cy-progress-track">
+                        <div id="hp-bar" class="cy-progress-fill hp-fill" style="width: 100%;"></div>
                     </div>
                 </div>
-                <div class="bar-container exp-container">
-                    <div class="bar-label">EXP <span id="exp-text">0/100</span></div>
-                    <div class="bar-track">
-                        <div id="exp-bar" class="bar-fill" style="width: 0%;"></div>
+                <div class="bar-wrapper exp-wrapper">
+                    <div class="bar-header">
+                        <span class="cy-label">DATA_SYNC (EXP)</span>
+                        <span id="exp-text" class="bar-value">0/100</span>
+                    </div>
+                    <div class="cy-progress-track">
+                        <div id="exp-bar" class="cy-progress-fill exp-fill" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
         </header>
 
         <!-- Habit Console Section -->
-        <main class="console frame">
-            <div class="console-header">
-                <span class="blink">>></span> HABIT_PROTOCOLS_INITIALIZED
+        <main class="console cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">>></span> PROTOCOLS
             </div>
             <div id="habit-list" class="habit-list">
-                <!-- Habits will be rendered here by JS -->
-            </div>
-            <div class="controls">
-                <!-- Potential future add button -->
+                <!-- Habits will be rendered here via JS -->
             </div>
         </main>
 
         <!-- Action Log Section -->
-        <footer class="log frame">
-            <div class="log-header">
-                SYSTEM_LOG
+        <footer class="log cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">::</span> SYSTEM_LOGS
             </div>
-            <div id="action-log" class="log-content">
+            <div id="action-log" class="log-content custom-scrollbar">
                 <!-- Logs will be rendered here -->
             </div>
         </footer>

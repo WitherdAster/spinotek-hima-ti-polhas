@@ -58,8 +58,8 @@ function renderHabits(habits) {
                 <span class="habit-meta">[${habit.difficulty}] Streak: ${habit.streak}</span>
             </div>
             <div class="habit-actions">
-                <button class="btn btn-abort" data-id="${habit.id}" data-action="abort">ABORT</button>
-                <button class="btn btn-exec" data-id="${habit.id}" data-action="exec">EXECUTE</button>
+                <button class="cy-btn cy-btn-abort" data-id="${habit.id}" data-action="abort">ABORT</button>
+                <button class="cy-btn cy-btn-exec" data-id="${habit.id}" data-action="exec">EXECUTE</button>
             </div>
         `;
         elements.habitList.appendChild(el);
