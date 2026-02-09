@@ -17,6 +17,32 @@ const CHARACTER_STATUS = {
 };
 
 const FAINT_PENALTY_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+const STABILIZER_DURATION_MS = 12 * 60 * 60 * 1000; // 12 hours
+const NEURAL_STABILIZER_COST = 200;
+
+const UPGRADE_TYPES = {
+    vitalCore: { name: 'Vital Core', baseCost: 150, maxLevel: 5, description: '+5 Max HP' },
+    learningAmplifier: { name: 'Learning Amplifier', baseCost: 200, maxLevel: 5, description: '+3% EXP Gain' },
+    failureDampener: { name: 'Failure Dampener', baseCost: 180, maxLevel: 5, description: '-5% HP Loss' }
+};
+
+function getUpgradeCost(type, currentLevel) {
+    const upgrade = UPGRADE_TYPES[type];
+    if (!upgrade) return 999999;
+    if (currentLevel >= upgrade.maxLevel) return Infinity;
+    return Math.floor(upgrade.baseCost * Math.pow(1.5, currentLevel));
+}
+
+function getMaxHp(character) {
+    // Base 50 + 10 per level (starting from lvl 1)
+    let maxHp = 50 + (character.level - 1) * 10;
+
+    // Vital Core Bonus
+    if (character.passiveUpgrades && character.passiveUpgrades.vitalCore) {
+        maxHp += character.passiveUpgrades.vitalCore * 5;
+    }
+    return maxHp;
+}
 
 function calculateNextLevelExp(level) {
     const l = level;
@@ -27,50 +53,52 @@ function executeHabit(character, difficultyKey) {
     const rewards = DIFFICULTY_TIERS[difficultyKey] || DIFFICULTY_TIERS.EASY;
 
     // Check for recovery FIRST
-    let status = character.status;
-    let hp = character.hp;
-    let lastFaintedTimestamp = character.lastFaintedTimestamp;
-    let recovered = false;
+    let charState = checkStatusRecovery(character);
+    let status = charState.status;
+    let hp = charState.hp;
 
-    if (status === CHARACTER_STATUS.FAINTED) {
-        if (Date.now() - lastFaintedTimestamp >= FAINT_PENALTY_DURATION_MS) {
-            // Auto Recover
-            status = CHARACTER_STATUS.NORMAL;
-            lastFaintedTimestamp = null;
-            hp = Math.floor(character.maxHp * 0.5);
-            recovered = true;
-        } else {
-            // Apply Penalty
-            // If already penalized in rewards, this might be double dipping? 
-            // Better to modify the gain directly
-        }
+    // Check if recovery occurred during checkStatusRecovery
+    const recovered = (status === CHARACTER_STATUS.NORMAL && character.status === CHARACTER_STATUS.FAINTED);
+
+    // Calculate EXP Gain
+    let expGain = rewards.exp;
+
+    // Apply Passive Bonus (Learning Amplifier)
+    if (character.passiveUpgrades && character.passiveUpgrades.learningAmplifier) {
+        const bonusPercent = character.passiveUpgrades.learningAmplifier * 0.03;
+        expGain = Math.floor(expGain * (1 + bonusPercent));
     }
 
-    // Apply penalty to gain if fainted and not just recovered
-    let expGain = rewards.exp;
-    if (status === CHARACTER_STATUS.FAINTED && !recovered) {
-        expGain = Math.floor(expGain / 2);
+    // Apply Fainted Penalty
+    if (status === CHARACTER_STATUS.FAINTED) {
+        // Use stored multiplier or default to 0.5
+        const multiplier = (character.debuff && character.debuff.expMultiplier) || 0.5;
+        expGain = Math.floor(expGain * multiplier);
     }
 
     // Logic to add EXP
     let newExp = character.currentExp + expGain;
     let newLevel = character.level;
     let newMaxExp = character.maxExp;
-    let newMaxHp = character.maxHp;
-    let newHp = (recovered) ? hp : character.hp; // Use recovered HP if recovered, else current
+    let newMaxHp = getMaxHp(character); // Use helper
+    let newHp = (recovered) ? hp : character.hp;
     let leveledUp = false;
+    let newDebuff = character.debuff;
+    let lastFaintedTimestamp = character.lastFaintedTimestamp;
 
     // Use loop for multi-level gain
     while (newExp >= newMaxExp) {
         newExp -= newMaxExp;
         newLevel++;
         newMaxExp = calculateNextLevelExp(newLevel);
-        newMaxHp += 10;
+        // Update Max HP based on new level
+        const tempChar = { ...character, level: newLevel };
+        newMaxHp = getMaxHp(tempChar);
         newHp = newMaxHp; // Full Restore on Level Up
         status = CHARACTER_STATUS.NORMAL; // Level up cures fainting
         lastFaintedTimestamp = null;
+        newDebuff = null; // Clear debuff
         leveledUp = true;
-        recovered = false; // Reset recovered flag since level up overrides it
     }
 
     return {
@@ -80,10 +108,11 @@ function executeHabit(character, difficultyKey) {
         maxExp: newMaxExp,
         hp: newHp,
         maxHp: newMaxHp,
-        gold: character.gold + (rewards.exp), // 1 Gold per 1 base EXP
+        gold: character.gold + (rewards.exp), // 1 Gold per 1 base EXP (Base reward used for logic simplicity)
         status: status,
         lastFaintedTimestamp: lastFaintedTimestamp,
-        _justRecovered: recovered, // Internal flag for UI logging
+        debuff: newDebuff,
+        _justRecovered: recovered,
         _leveledUp: leveledUp
     };
 }
@@ -91,15 +120,31 @@ function executeHabit(character, difficultyKey) {
 function abortHabit(character, difficultyKey) {
     const penalty = DIFFICULTY_TIERS[difficultyKey] || DIFFICULTY_TIERS.EASY;
 
-    let newHp = character.hp - penalty.hpCost;
+    let damage = penalty.hpCost;
+
+    // Apply Passive Reduction (Failure Dampener)
+    if (character.passiveUpgrades && character.passiveUpgrades.failureDampener) {
+        const reductionPercent = character.passiveUpgrades.failureDampener * 0.05;
+        damage = Math.floor(damage * (1 - reductionPercent));
+        if (damage < 1) damage = 1; // Minimum 1 damage
+    }
+
+    let newHp = character.hp - damage;
     let newStatus = character.status;
     let timestamp = character.lastFaintedTimestamp;
+    let newDebuff = character.debuff;
 
     if (newHp <= 0) {
         newHp = 0;
         if (newStatus !== CHARACTER_STATUS.FAINTED) {
             newStatus = CHARACTER_STATUS.FAINTED;
             timestamp = Date.now();
+            // Initialize Debuff
+            newDebuff = {
+                expMultiplier: 0.5,
+                expiresAt: timestamp + FAINT_PENALTY_DURATION_MS,
+                stabilized: false
+            };
         }
     }
 
@@ -107,30 +152,118 @@ function abortHabit(character, difficultyKey) {
         ...character,
         hp: newHp,
         status: newStatus,
-        lastFaintedTimestamp: timestamp
+        lastFaintedTimestamp: timestamp,
+        debuff: newDebuff
     };
 }
 
 function checkStatusRecovery(character) {
+    const currentMaxHp = getMaxHp(character);
+
     if (character.status === CHARACTER_STATUS.FAINTED) {
-        if (Date.now() - character.lastFaintedTimestamp >= FAINT_PENALTY_DURATION_MS) {
+        // Check expiration against debuff.expiresAt if exists, else fallback
+        const expirationTime = (character.debuff && character.debuff.expiresAt)
+            ? character.debuff.expiresAt
+            : (character.lastFaintedTimestamp + FAINT_PENALTY_DURATION_MS);
+
+        if (Date.now() >= expirationTime) {
             return {
                 ...character,
                 status: CHARACTER_STATUS.NORMAL,
                 lastFaintedTimestamp: null,
-                hp: Math.floor(character.maxHp * 0.5) // Recover to 50% HP
+                debuff: null, // Clear debuff
+                hp: Math.floor(currentMaxHp * 0.5), // Recover to 50% HP
+                maxHp: currentMaxHp // Ensure MaxHP is sync
             };
         }
     }
+    // Always ensure maxHp is correct in case of upgrades/level desync
+    if (character.maxHp !== currentMaxHp) {
+        return { ...character, maxHp: currentMaxHp };
+    }
+
     return character;
+}
+
+function useNeuralStabilizer(character) {
+    // Validation
+    if (character.status !== CHARACTER_STATUS.FAINTED) return { success: false, reason: "Character is not Fainted." };
+    if (character.gold < NEURAL_STABILIZER_COST) return { success: false, reason: "Insufficient Gold." };
+    if (character.debuff && character.debuff.stabilized) return { success: false, reason: "Already stabilized." };
+
+    // Apply Effect
+    const newGold = character.gold - NEURAL_STABILIZER_COST;
+    const newDebuff = {
+        ...character.debuff,
+        expMultiplier: 0.75, // -25% penalty
+        stabilized: true,
+        // Update expiration: 12 hours from ORIGINAL faint time (so it shortens the total duration)
+        expiresAt: character.lastFaintedTimestamp + STABILIZER_DURATION_MS
+    };
+
+    return {
+        success: true,
+        character: {
+            ...character,
+            gold: newGold,
+            debuff: newDebuff
+        }
+    };
+}
+
+function purchaseUpgrade(character, type) {
+    const upgrade = UPGRADE_TYPES[type];
+    if (!upgrade) return { success: false, reason: "Invalid upgrade type." };
+
+    const currentLevel = (character.passiveUpgrades && character.passiveUpgrades[type]) || 0;
+
+    if (currentLevel >= upgrade.maxLevel) return { success: false, reason: "Max level reached." };
+
+    const cost = getUpgradeCost(type, currentLevel);
+    if (character.gold < cost) return { success: false, reason: "Insufficient Gold." };
+
+    const newGold = character.gold - cost;
+    const newUpgrades = {
+        ...character.passiveUpgrades,
+        [type]: currentLevel + 1
+    };
+
+    // Recalculate derived stats immediately
+    const tempChar = { ...character, passiveUpgrades: newUpgrades };
+    const newMaxHp = getMaxHp(tempChar);
+    // If HP was full, keep it full? Or just increase cap? 
+    // Usually upgrading HP heals the amount gained or keeps percentage. 
+    // Let's just increase cap and keep current HP same (unless it exceeds?). 
+    // Actually, widespread RPG logic: gain the diff.
+    const hpDiff = newMaxHp - character.maxHp;
+    const newHp = character.hp + hpDiff;
+
+    return {
+        success: true,
+        character: {
+            ...character,
+            gold: newGold,
+            passiveUpgrades: newUpgrades,
+            maxHp: newMaxHp,
+            hp: newHp
+        },
+        upgradeName: upgrade.name,
+        newLevel: currentLevel + 1
+    };
 }
 
 // Expose to Global Scope
 window.RPG = {
     DIFFICULTY_TIERS,
     CHARACTER_STATUS,
+    NEURAL_STABILIZER_COST,
+    UPGRADE_TYPES,
     calculateNextLevelExp,
     executeHabit,
     abortHabit,
-    checkStatusRecovery
+    checkStatusRecovery,
+    useNeuralStabilizer,
+    getUpgradeCost,
+    getMaxHp,
+    purchaseUpgrade
 };

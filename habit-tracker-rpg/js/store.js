@@ -4,7 +4,7 @@
  * Adapted for Global Scope.
  */
 
-const STORAGE_KEY = 'habit_rpg_data_v1';
+const STORAGE_KEY = 'habit_rpg_data_v4';
 
 // Initial state factory to allow lazy access to window.RPG
 function getInitialState() {
@@ -16,9 +16,15 @@ function getInitialState() {
             maxExp: calculateNextLevelExp(1),
             hp: 50,
             maxHp: 50,
-            gold: 0,
+            gold: 0, // Will need to cheat this for testing
             status: CHARACTER_STATUS.NORMAL,
-            lastFaintedTimestamp: null
+            lastFaintedTimestamp: null,
+            debuff: null, // { expMultiplier: 0.5, expiresAt: <ts>, stabilized: false }
+            passiveUpgrades: {
+                vitalCore: 0,
+                learningAmplifier: 0,
+                failureDampener: 0
+            }
         },
         habits: [
             { id: 'h1', name: 'Code for 1 hour', difficulty: 'HARD', streak: 0 },
@@ -26,7 +32,7 @@ function getInitialState() {
             { id: 'h3', name: 'Read Documentation', difficulty: 'MEDIUM', streak: 0 }
         ],
         logs: [
-            { id: Date.now(), timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), message: 'SYSTEM: Welcome to Habit-Core RPG.', type: 'system' }
+            { id: Date.now(), timestamp: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }), message: 'SYSTEM: Welcome to Habit-Core RPG v4.0. Core Augmentation Online.', type: 'system' }
         ]
     };
 }
@@ -43,6 +49,10 @@ function load() {
             state = JSON.parse(raw);
             // Ensure data integrity (merge with defaults)
             if (!state.character) state.character = { ...defaults.character };
+            // Ensure debuff field exists if migrating from older version (though we changed key)
+            if (state.character.debuff === undefined) state.character.debuff = null;
+            if (!state.character.passiveUpgrades) state.character.passiveUpgrades = { ...defaults.character.passiveUpgrades };
+
             if (!state.habits) state.habits = [...defaults.habits];
             if (!state.logs) state.logs = [...defaults.logs];
         } catch (e) {
@@ -103,6 +113,34 @@ window.Store = {
         save();
     },
 
+    triggerStabilizer() {
+        const { useNeuralStabilizer } = window.RPG;
+        const result = useNeuralStabilizer(state.character);
+
+        if (result.success) {
+            state.character = result.character;
+            addLog(`SYSTEM: Neural Stabilizer activated. EXP penalty reduced.`, 'success');
+            save(); // Triggers notify
+        } else {
+            addLog(`SYSTEM: Stabilizer failed. ${result.reason}`, 'failure');
+            notify(); // Ensure UI reflects any attempt
+        }
+    },
+
+    purchaseUpgrade(type) {
+        const { purchaseUpgrade } = window.RPG;
+        const result = purchaseUpgrade(state.character, type);
+
+        if (result.success) {
+            state.character = result.character;
+            addLog(`SYSTEM: Core Augmentation installed: ${result.upgradeName} (Lvl ${result.newLevel})`, 'success');
+            save();
+        } else {
+            addLog(`SYSTEM: Upgrade Error: ${result.reason}`, 'failure');
+            notify();
+        }
+    },
+
     addLogEntry(message, type = 'system') {
         const entry = {
             id: Date.now(),
@@ -110,8 +148,8 @@ window.Store = {
             message,
             type
         };
-        state.logs.unshift(entry);
-        if (state.logs.length > 50) state.logs.pop();
+        state.logs.push(entry);
+        if (state.logs.length > 50) state.logs.shift(); // Remove oldest (from front)
         save();
     },
 

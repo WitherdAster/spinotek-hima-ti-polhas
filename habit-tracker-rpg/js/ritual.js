@@ -77,23 +77,37 @@ function createGhostHabit(template, container) {
 }
 
 function setupHoldInteraction(element, template) {
+    // CLOSURE STATE: Strictly isolated to this element instance
     let holdTimer = null;
     let progress = 0;
-    let isActive = false;
+
+    // Explicit State Machine
+    const setState = (newState) => {
+        element.dataset.ritualState = newState;
+        // Keep class sync for existing CSS, or migrate CSS to use [data-ritual-state]
+        if (newState === 'MATERIALIZING') element.classList.add('is-materializing');
+        else element.classList.remove('is-materializing');
+
+        if (newState === 'COMMITTED') element.classList.add('is-born');
+    };
+
+    // Initialize State
+    setState('IDLE');
     const HOLD_DURATION_MS = 1000;
-    const FRAME_RATE = 16; // ~60fps
 
     const startHold = (e) => {
         // Prevent default touch scrolling or selection
         if (e.type === 'touchstart') e.preventDefault();
 
-        isActive = true;
-        element.classList.add('is-materializing');
+        // Only allow start if IDLE
+        if (element.dataset.ritualState !== 'IDLE') return;
 
+        setState('MATERIALIZING');
         let startTime = Date.now();
 
         const tick = () => {
-            if (!isActive) return;
+            // Safety check: if state changed externally (e.g. disintegrated), stop
+            if (element.dataset.ritualState !== 'MATERIALIZING') return;
 
             const elapsed = Date.now() - startTime;
             progress = Math.min((elapsed / HOLD_DURATION_MS) * 100, 100);
@@ -102,6 +116,8 @@ function setupHoldInteraction(element, template) {
             element.style.setProperty('--progress', `${progress}%`);
 
             if (progress >= 100) {
+                // Success!
+                setState('COMMITTED');
                 completeRitual(element, template);
             } else {
                 holdTimer = requestAnimationFrame(tick);
@@ -112,22 +128,31 @@ function setupHoldInteraction(element, template) {
     };
 
     const cancelHold = () => {
-        // If it was just a click (start & end same frame), simple cancel.
-        // But if progress > 0 and < 100, trigger disintegration.
-        if (isActive && progress > 0 && progress < 100) {
-            cancelAnimationFrame(holdTimer);
+        // Only intervene if currently materializing
+        if (element.dataset.ritualState !== 'MATERIALIZING') return;
+
+        // Stop the timer
+        if (holdTimer) cancelAnimationFrame(holdTimer);
+
+        // Decision: Click or Fail?
+        // If progress is very low (e.g. < 5%) treat as click/mistake?
+        // Requirement says: "Release hold before full -> Disintegrate".
+        // Let's be strict but forgive instant clicks (< 50ms isn't visibly holding).
+        // Actually, logic said "If progress > 0 and < 100".
+
+        if (progress > 5 && progress < 100) {
+            setState('DISINTEGRATING');
             disintegrate(element);
         } else {
-            // Normal cleanup if not active yet
-            if (holdTimer) cancelAnimationFrame(holdTimer);
-            element.classList.remove('is-materializing');
+            // Just reset (too fast to be a hold attempt, or safety fallback)
+            setState('IDLE');
             element.style.setProperty('--progress', '0%');
         }
 
-        isActive = false;
         progress = 0;
     };
 
+    // Event Binding - Scoped to this element
     // Desktop
     element.addEventListener('mousedown', startHold);
     element.addEventListener('mouseup', cancelHold);
@@ -140,6 +165,8 @@ function setupHoldInteraction(element, template) {
 }
 
 function disintegrate(element) {
+    if (!element.parentElement) return; // Already gone
+
     // 1. Get Coordinates
     const rect = element.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -148,8 +175,9 @@ function disintegrate(element) {
     // 2. Remove Element immediately (The Void consumes it)
     element.remove();
 
-    // 3. Log Failure
-    window.Store.addLogEntry(`SYSTEM: Habit disintegrated due to weak commitment.`, 'failure');
+    // 3. Log Failure (Use Template ID or Name if available, otherwise Generic)
+    const habitName = element.querySelector('.habit-name')?.innerText || 'Unknown Protocol';
+    window.Store.addLogEntry(`SYSTEM: '${habitName}' disintegrated. Commitment failed.`, 'failure');
 
     // 4. Spawn Particles
     const PARTICLE_COUNT = 15;
@@ -168,7 +196,6 @@ function disintegrate(element) {
         p.style.setProperty('--ty', ty);
 
         // Start position (center of destroyed element)
-        // Add some jitter to start position itself
         const jitterX = (Math.random() - 0.5) * rect.width;
         const jitterY = (Math.random() - 0.5) * rect.height;
 
@@ -186,9 +213,8 @@ function disintegrate(element) {
 
 function completeRitual(element, template) {
     // 1. Finalize Visuals
+    // element.classList.add('is-born'); // Handled by setState('COMMITTED') now
     element.classList.remove('is-ghost');
-    element.classList.remove('is-materializing');
-    element.classList.add('is-born'); // Success flash
 
     // 2. Add to Store (Real Persistence)
     const newHabit = {
@@ -197,13 +223,6 @@ function completeRitual(element, template) {
         difficulty: template.difficulty,
         streak: 0
     };
-
-    // Remove the ghost DOM element because Store update will re-render the list
-    // But we want to keep the animation? 
-    // Actually, Store update triggers full re-render which wipes list.
-    // To make it smooth, we update Store, and maybe UI rendering handles 'is-born' class if recent?
-    // For now, let's just update Store. UI will re-render standard solid item.
-    // We can add a log entry first.
 
     window.Store.addLogEntry(`SYSTEM: Ritual complete. '${template.name}' materialized.`, 'success');
     window.Store.addHabit(newHabit);

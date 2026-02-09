@@ -338,8 +338,8 @@ body {
     border: 1px solid var(--cy-neon-blue);
 }
 
-/* Materializing (Holding) */
-.habit-item.is-materializing {
+/* Materializing (Holding) - Mapped to State */
+.habit-item[data-ritual-state="MATERIALIZING"] {
     border-style: solid;
     border-color: var(--cy-neon-green);
     /* Progress bar background */
@@ -350,7 +350,7 @@ body {
     /* Stop flicker */
 }
 
-.habit-item.is-materializing::after {
+.habit-item[data-ritual-state="MATERIALIZING"]::after {
     content: "MATERIALIZING...";
     color: var(--cy-neon-green);
     border-color: var(--cy-neon-green);
@@ -589,38 +589,58 @@ body {
     text-shadow: var(--cy-glow-red);
 }
 
-/* Action Log */
-.log-content {
-    flex: 1;
-    padding: var(--space-s) var(--space-m);
-    font-family: var(--font-stack);
-    font-size: 0.75rem;
-    gap: 6px;
+/* System Log Console */
+.console-output {
+    margin-top: var(--space-m);
+    background: rgba(0, 0, 0, 0.6);
+    padding: var(--space-s);
+    border: 1px solid var(--cy-dim-gray);
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--cy-dim-gray);
+    min-height: 150px;
+    max-height: 150px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
 
-.log-entry {
-    color: var(--cy-text-dim);
-    border-left: 2px solid transparent;
-    padding-left: 6px;
-    animation: fadeIn 0.3s ease-in;
+/* Custom Scrollbar (Cyber Style) */
+.console-output::-webkit-scrollbar {
+    width: 6px;
 }
 
-.log-entry:first-child {
-    color: var(--cy-neon-green);
-    border-left-color: var(--cy-neon-green);
+.console-output::-webkit-scrollbar-track {
+    background: #0d1117;
+    border-left: 1px solid var(--cy-dim-gray);
+}
+
+.console-output::-webkit-scrollbar-thumb {
+    background: var(--cy-neon-blue);
+    border-radius: 2px;
+}
+
+.console-output::-webkit-scrollbar-thumb:hover {
+    background: var(--cy-neon-green);
+    box-shadow: 0 0 5px var(--cy-neon-green);
+}
+
+.log-entry {
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 2px;
+    animation: log-entry-appear 0.3s ease-out forwards;
 }
 
 .log-time {
-    color: #444;
-    margin-right: 4px;
+    color: var(--cy-neon-blue);
+    margin-right: 5px;
 }
 
-@keyframes fadeIn {
+@keyframes log-entry-appear {
     from {
         opacity: 0;
-        transform: translateY(-5px);
+        transform: translateY(5px);
     }
 
     to {
@@ -665,6 +685,27 @@ body {
         text-align: center;
         padding: 10px;
         /* Better touch target manually enforced */
+    }
+
+    /* Adjust Memory Core for Mobile */
+    .memory-core {
+        transform: translateX(calc(-100% + 40px));
+        /* Show only 40px tab */
+        width: 85%;
+        /* Drawer width */
+        max-width: 300px;
+        box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Hide text label on mobile when collapsed to show only icon */
+    .memory-core:not(.active) .header-title {
+        display: none;
+    }
+
+    /* Ensure icon is centered in the tab when collapsed */
+    .memory-core:not(.active) .panel-header {
+        justify-content: center;
+        padding-right: 0;
     }
 }
 
@@ -761,4 +802,124 @@ body.is-fainted {
     to {
         opacity: 0.5;
     }
+}
+
+/* =========================================
+   AUGMENTATION MODAL
+   ================================********* */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 500px;
+    background: var(--cy-bg-card);
+    border: 1px solid var(--cy-neon-gold);
+    box-shadow: 0 0 20px rgba(251, 255, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: rgba(251, 255, 0, 0.05);
+    padding: var(--space-m);
+    border-bottom: 1px solid rgba(251, 255, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--cy-neon-gold);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.modal-body {
+    padding: var(--space-m);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+}
+
+.upgrade-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--cy-dim-gray);
+    padding: var(--space-m);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.upgrade-item:hover {
+    border-color: var(--cy-neon-gold);
+    background: rgba(251, 255, 0, 0.05);
+}
+
+.upgrade-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.upgrade-name {
+    color: #fff;
+    font-weight: bold;
+}
+
+.upgrade-desc {
+    color: var(--cy-dim-gray);
+    font-size: 0.8rem;
+}
+
+.upgrade-meta {
+    color: var(--cy-neon-gold);
+    font-size: 0.75rem;
+    font-family: monospace;
+}
+
+.upgrade-btn {
+    min-width: 100px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--cy-neon-gold);
+    color: var(--cy-neon-gold);
+    cursor: pointer;
+    font-family: var(--font-stack);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(251, 255, 0, 0.5);
+}
+
+.upgrade-btn:hover:not(:disabled) {
+    background: var(--cy-neon-gold);
+    color: #000;
+}
+
+.upgrade-btn:disabled {
+    border-color: var(--cy-dim-gray);
+    color: var(--cy-dim-gray);
+    text-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--cy-dim-gray);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #fff;
 }

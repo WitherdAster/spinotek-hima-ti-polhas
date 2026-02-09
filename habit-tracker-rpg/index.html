@@ -15,7 +15,7 @@
         <!-- Memory Core (Ritual Source) -->
         <aside id="memory-core" class="memory-core cy-panel collapsed">
             <div class="panel-header" onclick="window.UI.toggleMemoryCore()">
-                <span class="cy-icon">🧠</span> MEMORY_CORE
+                <span class="cy-icon">🧠</span> <span class="header-title">MEMORY_CORE</span>
             </div>
             <div class="core-content">
                 <div class="core-desc">
@@ -94,7 +94,7 @@
             <div class="panel-header">
                 <span class="cy-icon">>></span> PROTOCOLS
             </div>
-            <div id="habit-list" class="habit-list">
+            <div id="habit-list" class="habit-list custom-scrollbar">
                 <!-- Habits will be rendered here via JS -->
             </div>
         </main>
@@ -107,7 +107,7 @@
                     style="margin-left:auto; font-size:0.7em; padding:2px 8px; border-color:var(--cy-neon-red); color:var(--cy-neon-red);">[
                     RESET_SYSTEM ]</button>
             </div>
-            <div id="action-log" class="log-content custom-scrollbar">
+            <div id="action-log" class="console-output custom-scrollbar">
                 <!-- Logs will be rendered here -->
             </div>
         </footer>
