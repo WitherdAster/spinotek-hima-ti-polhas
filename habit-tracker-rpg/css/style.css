@@ -622,6 +622,35 @@ body {
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 
+/* Developer Credits */
+.developer-credit {
+    font-size: 0.7rem;
+    color: var(--cy-text-dim);
+    /* Subtle but visible */
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: var(--font-stack);
+    text-transform: uppercase;
+    margin-top: -4px;
+    /* Pull it up slightly closer to bars */
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Optional separator */
+    width: 100%;
+
+    /* Responsive Text Sizing */
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 480px) {
+    .developer-credit {
+        font-size: 0.65rem;
+        /* Ensure it fits on single line if possible */
+        letter-spacing: 0.5px;
+    }
+}
+
 /* Habit List */
 .habit-list {
     flex: 1;
@@ -1376,4 +1405,26 @@ body.is-fainted {
 
 .penalty-stabilized {
     color: var(--cy-neon-gold);
+}
+
+/* Mobile/Tablet Scroll Fix */
+@media (max-width: 1023px) {
+    body {
+        height: auto;
+        overflow-y: auto;
+        /* Allow scrolling on mobile */
+    }
+
+    .cyber-interface {
+        height: auto;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ensure specific panels don't trap scroll or clip unnecessarily */
+    .dashboard {
+        flex-shrink: 0;
+        /* Don't squash the dashboard */
+    }
 }
