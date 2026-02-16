@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit-Core RPG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app" class="cyber-interface">
+        <div class="scanline"></div>
+
+        <!-- Memory Core (Ritual Source) -->
+        <aside id="memory-core" class="memory-core cy-panel collapsed">
+            <div class="panel-header" onclick="window.UI.toggleMemoryCore()">
+                <span class="cy-icon">🧠</span> <span class="header-title">MEMORY_CORE</span>
+            </div>
+            <div class="core-content">
+                <div class="core-desc">
+                    DRAG ghost protocol to Neural Interface to init.
+                </div>
+                <div class="ghost-container">
+                    <div class="habit-item ghost-template" draggable="true"
+                        data-template='{"name": "Read Tech Article", "difficulty": "EASY"}'>
+                        <span class="habit-name">READ_DATA</span>
+                        <span class="habit-meta">[EASY]</span>
+                    </div>
+                    <div class="habit-item ghost-template" draggable="true"
+                        data-template='{"name": "Code Side Project", "difficulty": "HARD"}'>
+                        <span class="habit-name">BUILD_CONSTRUCT</span>
+                        <span class="habit-meta">[HARD]</span>
+                    </div>
+                    <div class="habit-item ghost-template" draggable="true"
+                        data-template='{"name": "Workout Algorithm", "difficulty": "MEDIUM"}'>
+                        <span class="habit-name">PHYSICAL_TUNING</span>
+                        <span class="habit-meta">[MEDIUM]</span>
+                    </div>
+                    <div class="habit-item ghost-template" draggable="true"
+                        data-template='{"name": "Deep Focus", "difficulty": "HARD"}'>
+                        <span class="habit-name">DEEP_DIVE</span>
+                        <span class="habit-meta">[HARD]</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Dashboard Section -->
+        <header class="dashboard cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">⚡</span> STATUS_MONITOR
+            </div>
+
+            <div class="char-info">
+                <div class="stat-group">
+                    <div class="cy-label">LVL</div>
+                    <div id="char-level" class="cy-value neon-text">01</div>
+                </div>
+                <div class="stat-group">
+                    <div class="cy-label">GOLD</div>
+                    <div id="char-gold" class="cy-value gold-text">0</div>
+                </div>
+                <div class="stat-group">
+                    <div class="cy-label">CONDITION</div>
+                    <div id="char-status" class="cy-badge">NORMAL</div>
+                </div>
+            </div>
+
+            <div class="bars-container">
+                <div class="bar-wrapper hp-wrapper">
+                    <div class="bar-header">
+                        <span class="cy-label">INTEGRITY (HP)</span>
+                        <span id="hp-text" class="bar-value">50/50</span>
+                    </div>
+                    <div class="cy-progress-track">
+                        <div id="hp-bar" class="cy-progress-fill hp-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="bar-wrapper exp-wrapper">
+                    <div class="bar-header">
+                        <span class="cy-label">DATA_SYNC (EXP)</span>
+                        <span id="exp-text" class="bar-value">0/100</span>
+                    </div>
+                    <div class="cy-progress-track">
+                        <div id="exp-bar" class="cy-progress-fill exp-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <!-- Developer Credit -->
+                <div class="developer-credit">
+                    DEVELOP BY Reyhan Buztanil - Iqbal Rupawan - Anton Maulana
+                </div>
+            </div>
+        </header>
+
+        <!-- Habit Console Section -->
+        <main class="console cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">>></span> PROTOCOLS
+            </div>
+            <div id="habit-list" class="habit-list custom-scrollbar">
+                <!-- Habits will be rendered here via JS -->
+            </div>
+        </main>
+
+        <!-- Action Log Section -->
+        <footer class="log cy-panel">
+            <div class="panel-header">
+                <span class="cy-icon">::</span> SYSTEM_LOGS
+                <button id="btn-reset" class="cy-btn"
+                    style="margin-left:auto; font-size:0.7em; padding:2px 8px; border-color:var(--cy-neon-red); color:var(--cy-neon-red);">[
+                    RESET_SYSTEM ]</button>
+            </div>
+            <div id="action-log" class="console-output custom-scrollbar">
+                <!-- Logs will be rendered here -->
+            </div>
+        </footer>
+    </div>
+
+    </div>
+
+    <!-- Load Scripts in Dependency Order for Local Execution -->
+    <script src="js/rpgLogic.js?v=11"></script>
+    <script src="js/store.js?v=11"></script>
+    <script src="js/ui.js?v=11"></script>
+    <script src="js/ritual.js?v=11"></script>
+    <script src="js/app.js?v=11"></script>
+</body>
+
+</html>
